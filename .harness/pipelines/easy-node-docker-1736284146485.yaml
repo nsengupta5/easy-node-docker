@@ -12,10 +12,11 @@ pipeline:
   stages:
     - stage:
         identifier: build
-        name: build
+        name: Build
         spec:
           caching:
             enabled: true
+            paths: []
           cloneCodebase: true
           execution:
             steps:
@@ -38,4 +39,32 @@ pipeline:
               automountServiceAccountToken: true
               nodeSelector: {}
               os: Linux
+          buildIntelligence:
+            enabled: false
         type: CI
+        description: ""
+    - stage:
+        name: Push
+        identifier: Push
+        description: ""
+        type: CI
+        spec:
+          cloneCodebase: true
+          caching:
+            enabled: true
+          buildIntelligence:
+            enabled: true
+          execution:
+            steps:
+              - step:
+                  type: BuildAndPushDockerRegistry
+                  name: Dockerhub
+                  identifier: Dockerhub
+                  spec:
+                    connectorRef: dockerhub
+                    repo: nsengupta95/node-docker
+                    tags:
+                      - exampletag
+                    caching: true
+          infrastructure:
+            useFromStage: build
