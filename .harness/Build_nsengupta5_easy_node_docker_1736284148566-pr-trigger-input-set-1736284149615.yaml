@@ -1,0 +1,14 @@
+inputSet:
+  name: Build_nsengupta5_easy_node_docker_1736284148566-pr-trigger-input-set
+  identifier: Build_nsengupta5_easy_node_docker_1736284148566prtriggerinputset
+  orgIdentifier: default
+  projectIdentifier: Test
+  pipeline:
+    identifier: Build_nsengupta5_easy_node_docker_1736284148566
+    properties:
+      ci:
+        codebase:
+          build:
+            type: PR
+            spec:
+              number: <+trigger.prNumber>
