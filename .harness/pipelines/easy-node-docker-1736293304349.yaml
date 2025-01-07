@@ -39,3 +39,28 @@ pipeline:
               nodeSelector: {}
               os: Linux
         type: CI
+    - stage:
+        name: Push
+        identifier: Push
+        description: ""
+        type: CI
+        spec:
+          cloneCodebase: true
+          caching:
+            enabled: true
+          buildIntelligence:
+            enabled: true
+          infrastructure:
+            useFromStage: build
+          execution:
+            steps:
+              - step:
+                  type: BuildAndPushDockerRegistry
+                  name: dockerpush
+                  identifier: dockerpush
+                  spec:
+                    connectorRef: dockerhub
+                    repo: nsengupta95/node-docker
+                    tags:
+                      - exampletag
+                    caching: true
