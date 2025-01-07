@@ -1,0 +1,14 @@
+inputSet:
+  name: Build_nsengupta5_easy_node_docker_1736283815921-push-trigger-input-set
+  identifier: Build_nsengupta5_easy_node_docker_1736283815921pushtriggerinputset
+  orgIdentifier: default
+  projectIdentifier: default_project
+  pipeline:
+    identifier: Build_nsengupta5_easy_node_docker_1736283815921
+    properties:
+      ci:
+        codebase:
+          build:
+            type: branch
+            spec:
+              branch: <+trigger.branch>
