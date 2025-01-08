@@ -41,19 +41,17 @@ pipeline:
                       - latest
                   timeout: ""
                   type: BuildAndPushDockerRegistry
-          infrastructure:
-            type: KubernetesDirect
-            spec:
-              connectorRef: firstci
-              namespace: default
-              automountServiceAccountToken: true
-              nodeSelector: {}
-              os: Linux
           sharedPaths:
             - /var/run
             - /var/lib/docker
           buildIntelligence:
             enabled: false
+          platform:
+            os: Linux
+            arch: Arm64
+          runtime:
+            type: Docker
+            spec: {}
         type: CI
         description: ""
         variables:
