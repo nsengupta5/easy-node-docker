@@ -21,16 +21,6 @@ pipeline:
           execution:
             steps:
               - step:
-                  type: Background
-                  name: Background
-                  identifier: Background
-                  spec:
-                    connectorRef: dockerhub
-                    image: docker:dind
-                    shell: Sh
-                    entrypoint:
-                      - docker-entrypoint.sh
-              - step:
                   identifier: dockerbuild
                   name: docker_build
                   spec:
@@ -48,7 +38,7 @@ pipeline:
             enabled: false
           platform:
             os: Linux
-            arch: Arm64
+            arch: Amd64
           runtime:
             type: Docker
             spec: {}
