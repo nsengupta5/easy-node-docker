@@ -20,20 +20,6 @@ pipeline:
           execution:
             steps:
               - step:
-                  identifier: installdependencies
-                  name: install dependencies
-                  spec:
-                    command: npm install
-                  timeout: ""
-                  type: Run
-              - step:
-                  identifier: test
-                  name: test
-                  spec:
-                    command: npm run test
-                  timeout: ""
-                  type: Run
-              - step:
                   identifier: dockerbuild
                   name: docker_build
                   spec:
@@ -44,10 +30,37 @@ pipeline:
                       - latest
                   timeout: ""
                   type: BuildAndPushDockerRegistry
-          platform:
-            arch: Amd64
-            os: Linux
-          runtime:
-            spec: {}
-            type: Docker
+          infrastructure:
+            type: KubernetesDirect
+            spec:
+              connectorRef: myconnector2
+              namespace: default
+              automountServiceAccountToken: true
+              nodeSelector: {}
+              os: Linux
         type: CI
+    - stage:
+        name: Push
+        identifier: Push
+        description: ""
+        type: CI
+        spec:
+          cloneCodebase: true
+          caching:
+            enabled: true
+          buildIntelligence:
+            enabled: true
+          infrastructure:
+            useFromStage: build
+          execution:
+            steps:
+              - step:
+                  type: BuildAndPushDockerRegistry
+                  name: pushimage
+                  identifier: pushimage
+                  spec:
+                    connectorRef: docker_hub
+                    repo: nsengupta95/node-docker
+                    tags:
+                      - exampletag
+                    caching: true
