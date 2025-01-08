@@ -16,9 +16,20 @@ pipeline:
         spec:
           caching:
             enabled: true
+            paths: []
           cloneCodebase: true
           execution:
             steps:
+              - step:
+                  type: Background
+                  name: Background
+                  identifier: Background
+                  spec:
+                    connectorRef: dockerhub
+                    image: docker:dind
+                    shell: Sh
+                    entrypoint:
+                      - docker-entrypoint.sh
               - step:
                   identifier: dockerbuild
                   name: docker_build
@@ -38,7 +49,19 @@ pipeline:
               automountServiceAccountToken: true
               nodeSelector: {}
               os: Linux
+          sharedPaths:
+            - /var/run
+            - /var/lib/docker
+          buildIntelligence:
+            enabled: false
         type: CI
+        description: ""
+        variables:
+          - name: dh_pw
+            type: Secret
+            description: ""
+            required: false
+            value: dhpw
     - stage:
         name: Push
         identifier: Push
