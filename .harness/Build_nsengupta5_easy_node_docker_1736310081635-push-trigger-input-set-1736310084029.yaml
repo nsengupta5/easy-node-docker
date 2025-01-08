@@ -1,0 +1,14 @@
+inputSet:
+  name: Build_nsengupta5_easy_node_docker_1736310081635-push-trigger-input-set
+  identifier: Build_nsengupta5_easy_node_docker_1736310081635pushtriggerinputset
+  orgIdentifier: default
+  projectIdentifier: HarnessDemo
+  pipeline:
+    identifier: Build_nsengupta5_easy_node_docker_1736310081635
+    properties:
+      ci:
+        codebase:
+          build:
+            type: branch
+            spec:
+              branch: <+trigger.branch>
